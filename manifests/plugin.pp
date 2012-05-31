@@ -25,7 +25,7 @@ define munin-jmx::plugin (
     }
 
     if $conf_template != '' {
-        file { "/etc/munin/plugins/jma_${name}":
+        file { "/usr/share/munin/plugins/jmx_${name}":
             owner => root,
             group => root,
             mode => 0755,
@@ -34,11 +34,16 @@ define munin-jmx::plugin (
     }
 
     if $conf_source != '' {
-        file { "/etc/munin/plugins/jma_${name}":
+        file { "/usr/share/munin/plugins/jmx_${name}":
             owner => root,
             group => root,
             mode => 0755,
             source => $conf_source,
         }
+    }
+
+    file { "/etc/munin/plugins/jmx_${name}":
+        ensure => link,
+        target => '/usr/share/munin/plugins/jmx_',
     }
 }
