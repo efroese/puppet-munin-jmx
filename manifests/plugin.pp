@@ -20,12 +20,8 @@ define munin-jmx::plugin (
         fail("Please pass either the conf_template or conf_source parameter. NOT BOTH!")
     }
 
-    file { "/etc/munin/plugins/jmx_${name}":
-        ensure => "/usr/share/munin/plugins/jmx_",
-    }
-
     if $conf_template != '' {
-        file { "/usr/share/munin/plugins/jmx_${name}":
+        file { "/usr/share/munin/plugins/${name}.conf":
             owner => root,
             group => root,
             mode => 0755,
@@ -34,7 +30,7 @@ define munin-jmx::plugin (
     }
 
     if $conf_source != '' {
-        file { "/usr/share/munin/plugins/jmx_${name}":
+        file { "/usr/share/munin/plugins/${name}.conf":
             owner => root,
             group => root,
             mode => 0755,
